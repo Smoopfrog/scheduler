@@ -6,6 +6,7 @@ import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
+import Appointment from "components/Appointment/index.js";
 
 // CSS
 import "index.scss";
@@ -129,5 +130,16 @@ storiesOf("InterviewerList", module)
     <InterviewerList
       interviewers={interviewers}
       onChange={action("setInterviewer")}
+    />
+  ));
+
+storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with time", () => (
+    <Appointment 
+      time = "12pm"
     />
   ));

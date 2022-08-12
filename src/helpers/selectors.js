@@ -6,7 +6,17 @@ export function getAppointmentsForDay(state, day) {
       stateDay.appointments.forEach(appointmentId => {
         appointmentsArr.push(state.appointments[appointmentId])
       })
-    } 
+    }
   })
   return appointmentsArr;
+}
+
+export function getInterview(state, interview) {
+  
+  if (interview) {
+    interview.interviewer = state.interviewers[interview.interviewer];
+    return interview;
+  }
+
+  return null;
 }

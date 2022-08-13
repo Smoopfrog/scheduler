@@ -12,8 +12,6 @@ const useVisualMode = initial => {
       let replaceHistory = history
       replaceHistory[replaceHistory - 1] = newMode
       setHistory(replaceHistory)
-      console.log('replace')
-      console.log(history)
     }
   }
 

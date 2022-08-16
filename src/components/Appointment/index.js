@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
@@ -45,7 +45,7 @@ export default function Appointment(props) {
 
   const remove = () => {
 
-    transition(DELETING);
+    transition(DELETING, true);
 
     props.cancelInterview(props.id)
     .then(() => {transition(EMPTY)})
@@ -54,15 +54,6 @@ export default function Appointment(props) {
       transition(ERROR_DELETE, true)
     })
   }
-  
-  // useEffect(()=> {
-  //   if(props.interview && (mode === EMPTY)) {
-  //     transition(SHOW)
-  //   }
-  //   if(!props.interview && (mode === SHOW)){
-  //     transition(EMPTY)
-  //   }
-  // }, [props.interview])
   
   return (
     <article className="appointment">
@@ -83,8 +74,8 @@ export default function Appointment(props) {
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={back} onSave={save}/>}
       {mode === EDIT && <Form interviewers={props.interviewers} onCancel={back} onSave={save}/>}
       {mode === CONFIRM && <Confirm onConfirm={remove} />}
-      {mode === ERROR_DELETE && <Error />}
-      {mode === ERROR_SAVE && <Error />}
+      {mode === ERROR_DELETE && <Error onClose={back}/>}
+      {mode === ERROR_SAVE && <Error onClose={back}/>}
 
     </article>
   )

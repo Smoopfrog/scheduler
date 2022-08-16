@@ -71,6 +71,7 @@ export default function Application(props) {
     })
     .catch(err => {
       console.log('err', err)
+      throw err;
     })
 
   }

@@ -6,12 +6,13 @@ const useVisualMode = initial => {
 
   const transition = (newMode, replace = false) => {
     setMode(newMode)
-    setHistory([...history, newMode])
     
     if(replace) {
       let replaceHistory = history
       replaceHistory[replaceHistory - 1] = newMode
       setHistory(replaceHistory)
+    } else {
+      setHistory([...history, newMode])
     }
   }
 

@@ -41,7 +41,6 @@ export default function Appointment(props) {
       transition(ERROR_SAVE, true)
     });
   }
-  console.log("mode", mode)
 
   const remove = () => {
 

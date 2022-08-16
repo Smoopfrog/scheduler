@@ -1,8 +1,8 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
-  
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -24,7 +24,29 @@ export default function useApplicationData() {
       })
   }, [])
 
+  const getDay = day => {
+    const weekDays = {
+      Monday: 0,
+      Tuesday: 1,
+      Wednesday: 2,
+      Thursday: 3,
+      Friday: 4
+    }
+
+    return weekDays[day];
+  }
+
   const bookInterview = (id, interview) => {
+    const currentDay = getDay(state.day)
+    
+    const spots = {
+      ...state.days[currentDay],
+      spots: state.days[currentDay].spots - 1
+    }
+
+    let days = state.days
+    days[currentDay] = spots;
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -39,7 +61,7 @@ export default function useApplicationData() {
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
         })
       })
       .catch(err => {
@@ -49,6 +71,16 @@ export default function useApplicationData() {
   }
 
   const cancelInterview = (id) => {
+    const currentDay = getDay(state.day)
+    
+    const spots = {
+      ...state.days[currentDay],
+      spots: state.days[currentDay].spots + 1
+    }
+
+    let days = state.days
+    days[currentDay] = spots;
+
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -61,9 +93,11 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`, appointment)
       .then(() => {
+
         setState({
           ...state,
-          appointments
+          appointments,
+          days
         })
       })
       .catch(err => {
@@ -71,6 +105,6 @@ export default function useApplicationData() {
         throw err;
       })
   }
-  return {state, setDay, bookInterview, cancelInterview}
+  return { state, setDay, bookInterview, cancelInterview }
 }
 

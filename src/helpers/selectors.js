@@ -12,16 +12,16 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterviewersForDay(state, day) {
-  let appointmentsArr = [];
+  let InterviewersArr = [];
 
   state.days.forEach(stateDay => {
     if(stateDay.name === day) {
-      stateDay.appointments.forEach(appointmentId => {
-        appointmentsArr.push(state.appointments[appointmentId])
+      stateDay.interviewers.forEach(interviewerId => {
+        InterviewersArr.push(state.interviewers[interviewerId])
       })
     }
   })
-  return appointmentsArr;
+  return InterviewersArr;
 }
 
 

@@ -5,13 +5,15 @@ const state = {
     {
       id: 1,
       name: "Monday",
-      appointments: [1, 2, 3]
+      appointments: [1, 2, 3],
+      interviewers: [1, 2, 4],
     },
     {
       id: 2,
       name: "Tuesday",
-      appointments: [4, 5]
-    }
+      appointments: [4, 5],
+      interviewers: [3, 2],
+    },
   ],
   appointments: {
     "1": { id: 1, time: "12pm", interview: null },
@@ -75,24 +77,26 @@ test("getInterviewersForDay returns an array", () => {
   expect(Array.isArray(result)).toBe(true);
 });
 
-test("getInterviewersForDay returns an array with a length matching the number of appointments for that day", () => {
+test("getInterviewersForDay returns an array with a length matching the number of interviewers for that day", () => {
   const result = getInterviewersForDay(state, "Monday");
   expect(result.length).toEqual(3);
 });
 
-test("getInterviewersForDay returns an array containing the correct appointment objects", () => {
+test("getInterviewersForDay returns an array containing the correct interviewer objects", () => {
   const [first, second] = getInterviewersForDay(state, "Tuesday");
-  expect(first).toEqual(state.appointments["4"]);
-  expect(second).toEqual(state.appointments["5"]);
+  expect(first).toEqual(state.interviewers["3"]);
+  expect(second).toEqual(state.interviewers["2"]);
+});
+
+test("getInterviewersForDay returns an array containing the correct interviewer objects", () => {
+  const [first, second, third] = getInterviewersForDay(state, "Monday");
+  expect(first).toEqual(state.interviewers["1"]);
+  expect(second).toEqual(state.interviewers["2"]);
+  expect(third).toEqual(state.interviewers["4"]);
 });
 
 test("getInterviewersForDay returns an empty array when the days data is empty", () => {
   const result = getInterviewersForDay({ days: [] }, "Monday");
-  expect(result.length).toEqual(0);
-});
-
-test("getInterviewersForDay returns an empty array when the day is not found", () => {
-  const result = getInterviewersForDay(state, "Wednesday");
   expect(result.length).toEqual(0);
 });
 

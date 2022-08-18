@@ -26,11 +26,12 @@ export function getInterviewersForDay(state, day) {
 
 
 export function getInterview(state, interview) {
-  
-  if (interview) {
-    interview.interviewer = state.interviewers[interview.interviewer];
-    return interview;
+  if (!interview) {
+    return null;
   }
 
-  return null;
+  const { student, interviewer } = interview;
+  const interviewerObj = state.interviewers[interviewer];
+  
+  return { student, interviewer: interviewerObj };
 }

@@ -14,7 +14,7 @@ export default function Form(props) {
 
   const cancel = () => {
     reset();
-    props.onCancel()
+    props.onCancel();
   }
 
   function validate() {
@@ -62,5 +62,5 @@ export default function Form(props) {
       </section>
     </main>
   )
-}
+};
 

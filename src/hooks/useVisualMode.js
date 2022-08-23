@@ -8,10 +8,12 @@ const useVisualMode = initial => {
     setMode(newMode)
     
     if(replace) {
+      // replace the mode on top with newMode
       let replaceHistory = history
       replaceHistory[replaceHistory - 1] = newMode
       setHistory(replaceHistory)
     } else {
+      // add the new mode to the stack
       setHistory([...history, newMode])
     }
   }
@@ -19,11 +21,13 @@ const useVisualMode = initial => {
   const back = () => {
     let newHistory = [...history]
 
+    // Pop out the most recent mode
     newHistory.pop();
     setHistory(newHistory)
 
+    // Check if history is empty 
     if(history.length > 1 ) {
-      setMode(newHistory[newHistory.length -1 ])
+      setMode(newHistory[newHistory.length - 1])
     }
   }
 
